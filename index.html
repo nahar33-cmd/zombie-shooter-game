@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Shooter - Play as the Zombie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        canvas {
+            border: 3px solid #00ff00;
+            background: #0a0a0a;
+            cursor: none;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .ui-container {
+            display: flex;
+            gap: 40px;
+            justify-content: space-between;
+            width: 800px;
+            color: #00ff00;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .hud {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border: 2px solid #00ff00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            background: #00ff00;
+            transition: width 0.2s;
+        }
+
+        .ammo {
+            color: #ffcc00;
+        }
+
+        .score {
+            color: #ff6600;
+        }
+
+        .instructions {
+            color: #aaa;
+            font-size: 14px;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border: 3px solid #00ff00;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            min-width: 400px;
+        }
+
+        .game-over h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        .game-over p {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .restart-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            font-size: 18px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: #00cc00;
+            transform: scale(1.05);
+        }
+
+        .wave-indicator {
+            font-size: 24px;
+            color: #ffff00;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 style="color: #00ff00; text-shadow: 0 0 20px #00ff00;">ZOMBIE OUTBREAK</h1>
+        
+        <div style="position: relative; display: inline-block;">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div id="gameOverScreen" class="game-over">
+                <h1 id="gameOverTitle">GAME OVER</h1>
+                <p id="gameOverText">You have been defeated</p>
+                <p style="color: #ffcc00;" id="finalScore">Score: 0</p>
+                <button class="restart-btn" onclick="location.reload()">RESTART GAME</button>
+            </div>
+        </div>
+
+        <div class="ui-container">
+            <div class="hud">
+                <div>ZOMBIE HEALTH</div>
+                <div class="health-bar">
+                    <div class="health-bar-fill" id="playerHealthBar"></div>
+                </div>
+                <div id="healthText">100 / 100</div>
+            </div>
+            <div class="hud wave-indicator">
+                <div id="waveText">WAVE 1</div>
+                <div id="enemyCount">Enemies: 0</div>
+            </div>
+            <div class="hud">
+                <div class="score" id="scoreDisplay">KILLS: 0</div>
+                <div id="levelDisplay">LEVEL: 1</div>
+                <div class="ammo" id="enemyHealthDisplay">Enemy Health: 100</div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <strong>🧟 CONTROLS:</strong><br>
+            ARROW KEYS or WASD to move | MOUSE to aim | LEFT CLICK to attack with claws<br>
+            <strong>OBJECTIVE:</strong> Survive waves of human enemies and reach them before they shoot you!<br>
+            Dodge their bullets and use your zombie claws to take them down!
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
